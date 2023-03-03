@@ -3,6 +3,8 @@ from fastapi.testclient import TestClient
 
 from .main import app
 
+ITEMS_ROUTE = "/items/"
+
 client = TestClient(app)
 
 
@@ -34,7 +36,7 @@ def test_read_inexistent_item() -> None:
 def test_create_item() -> None:
     """Test the POST /items/ endpoint."""
     response = client.post(
-        "/items/",
+        ITEMS_ROUTE,
         headers={"X-Token": "coneofsilence"},
         json={"id": "foobar", "title": "Foo Bar", "description": "The Foo Barters"},
     )
@@ -49,7 +51,7 @@ def test_create_item() -> None:
 def test_create_item_bad_token() -> None:
     """Test the POST /items/ endpoint with a bad token."""
     response = client.post(
-        "/items/",
+        ITEMS_ROUTE,
         headers={"X-Token": "hailhydra"},
         json={"id": "bazz", "title": "Bazz", "description": "Drop the bazz"},
     )
@@ -60,7 +62,7 @@ def test_create_item_bad_token() -> None:
 def test_create_existing_item() -> None:
     """Test the POST /items/ endpoint with an existing item."""
     response = client.post(
-        "/items/",
+        ITEMS_ROUTE,
         headers={"X-Token": "coneofsilence"},
         json={
             "id": "foo",
