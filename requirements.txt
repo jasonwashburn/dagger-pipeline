@@ -4,4 +4,5 @@ dagger-io
 pytest
 pytest-xdist
 ruff
+mypy
 pre-commit
