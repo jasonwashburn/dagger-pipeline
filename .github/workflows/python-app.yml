@@ -28,6 +28,9 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install dagger-io
     - name: Run Dagger Pipeline
+      env: # Or as an environment variable
+        SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
+        SONAR_SCANNER_OPTS: ${{ secrets.SONAR_SCANNER_OPTS }}
       run: |
         # stop the build if there are Python syntax errors or undefined names
         python pipeline.py
