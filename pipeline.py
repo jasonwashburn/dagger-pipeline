@@ -1,5 +1,6 @@
 """Execute a command."""
 
+import os
 import sys
 
 import anyio
@@ -12,9 +13,19 @@ async def test() -> None:
     async with dagger.Connection(dagger.Config(log_output=sys.stdout)) as client:
         # get reference to the local project
         src = client.host().directory(".", exclude=["./venv"])
-
+        sonar = (
+            client.container()
+            .from_("sonarsource/sonar-scanner-cli:latest")
+            .with_env_variable("SONAR_HOST_URL", "https://sonarcloud.io")
+            .with_env_variable("SONAR_SCANNER_OPTS", os.environ["SONAR_SCANNER_OPTS"])
+            .with_env_variable("SONAR_LOGIN", os.environ["SONAR_LOGIN"])
+            .with_mounted_directory("/usr/src", src)
+            .with_exec(["sonar-scanner"])
+        )
+        await sonar.exit_code()
         for version in versions:
             venv_cache = client.cache_volume(f"venv-{version}")
+
             base = (
                 client.container().from_(f"python:{version}-slim-buster")
                 # mount cloned repository into image
