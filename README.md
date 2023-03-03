@@ -6,7 +6,7 @@
 
 [black badge]: https://img.shields.io/badge/code%20style-black-000000.svg
 [black project]: https://github.com/psf/black
-[github actions badge]: https://github.com/jasonwashburn/dagger-pipeline/workflows/Lint_And_Test/badge.svg
+[github actions badge]: https://github.com/jasonwashburn/dagger-pipeline/workflows/dagger-pipeline/badge.svg
 [github actions page]: https://github.com/jasonwashburn/dagger-pipeline/actions?workflow=dagger-pipeline
 [sonar-badge]: https://sonarcloud.io/api/project_badges/measure?project=jasonwashburn_testing-dagger&metric=security_rating
 [sonar-page]: https://sonarcloud.io/summary/new_code?id=jasonwashburn_testing-dagger
